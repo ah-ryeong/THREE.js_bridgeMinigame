@@ -2,6 +2,7 @@ import { cm1, cm2 } from './common';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { Pillar } from './Pillar';
+import { Floor } from './Floor';
 
 // Renderer
 const renderer = new THREE.WebGLRenderer({
@@ -55,19 +56,22 @@ controls.enableDamping = true;
 const glassUnitSize = 1.2;
 
 // Stage
+const floor = new Floor({
+	name: 'floor',
+});
 
 //  기둥 Pillar
 const pillar1 = new Pillar({
 	name: 'pillar',
 	x: 0,
-	y: 5,
+	y: 5.5,
 	z: -glassUnitSize * 12 - glassUnitSize / 2
 });
 
 const pillar2 = new Pillar({
 	name: 'pillar',
 	x: 0,
-	y: 5,
+	y: 5.5,
 	z: glassUnitSize * 12 + glassUnitSize / 2
 });
 
