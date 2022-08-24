@@ -1,6 +1,7 @@
 import { cm1, cm2 } from './common';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { Pillar } from './Pillar';
 
 // Renderer
 const renderer = new THREE.WebGLRenderer({
@@ -22,8 +23,9 @@ const camera = new THREE.PerspectiveCamera(
 	0.1,
 	1000
 );
-camera.position.y = 1.5;
-camera.position.z = 4;
+camera.position.x = -4;
+camera.position.y = 19;
+camera.position.z = 14;
 cm1.scene.add(camera);
 
 // Light
@@ -49,14 +51,25 @@ cm1.scene.add(spotLight1, spotLight2, spotLight3, spotLight4);
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
 
+// 물체
+const glassUnitSize = 1.2;
 
-// Mesh
-const geometry = new THREE.BoxGeometry(1, 1, 1);
-const material = new THREE.MeshStandardMaterial({
-	color: 'seagreen'
+// Stage
+
+//  기둥 Pillar
+const pillar1 = new Pillar({
+	name: 'pillar',
+	x: 0,
+	y: 5,
+	z: -glassUnitSize * 12 - glassUnitSize / 2
 });
-const mesh = new THREE.Mesh(geometry, material);
-cm1.scene.add(mesh);
+
+const pillar2 = new Pillar({
+	name: 'pillar',
+	x: 0,
+	y: 5,
+	z: glassUnitSize * 12 + glassUnitSize / 2
+});
 
 // 그리기
 const clock = new THREE.Clock();
