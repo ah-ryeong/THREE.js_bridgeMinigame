@@ -7,8 +7,17 @@ export class Glass extends Stuff {
         // 부모의 생성자를 호출
         super(info);
 
+        this.type = info.type;
+        // console.log(this.type);
+
         this.geometry = geo.glass;
-        this.material = mat.glass;
+        switch(this.type) {
+            case 'normal':
+                this.material = mat.glass1;
+                break;
+            case 'strong':
+                this.material = mat.glass2;
+        }
 
         this.mesh = new Mesh(this.geometry, this.material);
         this.mesh.position.set(this.x, this.y, this.z);

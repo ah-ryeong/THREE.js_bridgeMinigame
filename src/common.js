@@ -27,9 +27,14 @@ export const mat = {
     pillar: new MeshPhongMaterial({ color: cm2.pillarColor }),
     bar: new MeshPhongMaterial( { color: cm2.barColor }),
     sideLight: new MeshPhongMaterial({ color: cm2.lightColor }),
-    glass: new MeshPhongMaterial({ 
+    glass1: new MeshPhongMaterial({ 
         color: cm2.glassColor,
         transparent: true,
         opacity: 0.1
+    }),
+    glass2: new MeshPhongMaterial({ 
+        color: cm2.glassColor,
+        transparent: true,
+        opacity: 0.3
     }),
 };

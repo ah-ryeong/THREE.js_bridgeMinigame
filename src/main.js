@@ -103,19 +103,36 @@ for(let i = 0; i <49; i++) {
 }
 
 // glass
+let glassTypeNumber = 0;
+let glassTypes = [];
 for(let i = 0; i < numberOfGlass; i++) {
+	glassTypeNumber = Math.round(Math.random());
+	// console.log(glassTypeNumber);
+
+	switch(glassTypeNumber) {
+		case 0:
+			glassTypes = ['normal', 'strong'];
+			break;
+		case 1:
+			glassTypes = ['strong', 'normal'];
+			break;
+	}
+	// console.log(glassTypes);
+
 	const glass1 = new Glass({
-		name: 'glass',
+		name: `glass-${glassTypes[0]}`,
 		x: -1,
 		y: 10.5,
-		z: i * glassUnitSize * 2 - glassUnitSize * 9
+		z: i * glassUnitSize * 2 - glassUnitSize * 9,
+		type: glassTypes[0]
 	})
 
 	const glass2 = new Glass({
-		name: 'glass',
+		name: `glass-${glassTypes[1]}`,
 		x: 1,
 		y: 10.5,
-		z: i * glassUnitSize * 2 - glassUnitSize * 9
+		z: i * glassUnitSize * 2 - glassUnitSize * 9,
+		type: glassTypes[1],
 	})
 }
 
