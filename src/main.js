@@ -3,6 +3,8 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { Pillar } from './Pillar';
 import { Floor } from './Floor';
+import { Bar } from './Bar';
+import { SideLight } from './SideLight';
 
 // Renderer
 const renderer = new THREE.WebGLRenderer({
@@ -74,6 +76,29 @@ const pillar2 = new Pillar({
 	y: 5.5,
 	z: glassUnitSize * 12 + glassUnitSize / 2
 });
+
+// Bar
+const bar1 = new Bar({	name: 'bar', x: -1.6, y: 10.3, z: 0 });
+const bar2 = new Bar({	name: 'bar', x: -0.4, y: 10.3, z: 0 });
+const bar3 = new Bar({	name: 'bar', x: 0.4, y: 10.3, z: 0 });
+const bar4 = new Bar({	name: 'bar', x: 1.6, y: 10.3, z: 0 });
+
+// sideLight
+for(let i = 0; i <49; i++) {
+	new SideLight({ 
+		name: 'sideLight', 
+		container: bar1.mesh, 
+		z: i * 0.5 - glassUnitSize * 10
+	})
+}
+
+for(let i = 0; i <49; i++) {
+	new SideLight({ 
+		name: 'sideLight', 
+		container: bar4.mesh, 
+		z: i * 0.5 - glassUnitSize * 10
+	})
+}
 
 // 그리기
 const clock = new THREE.Clock();
