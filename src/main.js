@@ -5,6 +5,7 @@ import { Pillar } from './Pillar';
 import { Floor } from './Floor';
 import { Bar } from './Bar';
 import { SideLight } from './SideLight';
+import { Glass } from './Glass';
 
 // Renderer
 const renderer = new THREE.WebGLRenderer({
@@ -56,6 +57,7 @@ controls.enableDamping = true;
 
 // 물체
 const glassUnitSize = 1.2;
+const numberOfGlass = 10; 
 
 // Stage
 const floor = new Floor({
@@ -97,6 +99,23 @@ for(let i = 0; i <49; i++) {
 		name: 'sideLight', 
 		container: bar4.mesh, 
 		z: i * 0.5 - glassUnitSize * 10
+	})
+}
+
+// glass
+for(let i = 0; i < numberOfGlass; i++) {
+	const glass1 = new Glass({
+		name: 'glass',
+		x: -1,
+		y: 10.5,
+		z: i * glassUnitSize * 2 - glassUnitSize * 9
+	})
+
+	const glass2 = new Glass({
+		name: 'glass',
+		x: 1,
+		y: 10.5,
+		z: i * glassUnitSize * 2 - glassUnitSize * 9
 	})
 }
 
