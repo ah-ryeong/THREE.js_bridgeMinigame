@@ -6,6 +6,7 @@ import { Floor } from './Floor';
 import { Bar } from './Bar';
 import { SideLight } from './SideLight';
 import { Glass } from './Glass';
+import { Player } from './Player';
 
 // Renderer
 const renderer = new THREE.WebGLRenderer({
@@ -40,6 +41,8 @@ const spotlightDistance = 50;
 
 const spotLight1 = new THREE.SpotLight(cm2.lightColor, 1);
 spotLight1.castShadow = true;
+spotLight1.shadow.mapSize.width = 2048;
+spotLight1.shadow.mapSize.height = 2048;
 const spotLight2 = spotLight1.clone();
 const spotLight3 = spotLight1.clone();
 const spotLight4 = spotLight1.clone();
@@ -136,11 +139,22 @@ for(let i = 0; i < numberOfGlass; i++) {
 	})
 }
 
+// Player
+const player = new Player({
+	name: 'player',
+	x: 0,
+	y: 10.9,
+	z: 13,
+	rotationY: Math.PI
+});
+
 // 그리기
 const clock = new THREE.Clock();
 
 function draw() {
 	const delta = clock.getDelta();
+	
+	if(cm1.mixer) cm1.mixer.update(delta);
 
 	controls.update();
 
