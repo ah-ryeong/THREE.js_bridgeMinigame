@@ -2,7 +2,6 @@ import { BoxGeometry, MeshPhongMaterial, Scene, SphereGeometry } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 export const cm1 = {
-    canvas: document.querySelector('#three-canvas'),
     scene: new Scene(),
     gltfLoader: new GLTFLoader(),
     mixer: undefined,
