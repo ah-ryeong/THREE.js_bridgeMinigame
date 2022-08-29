@@ -27,6 +27,7 @@
     "webpack-dev-server": "^4.10.0"
   },
   "dependencies": {
+    "cannon-es": "^0.20.0",
     "three": "^0.143.0"
   }
 }
