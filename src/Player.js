@@ -7,8 +7,12 @@ export class Player extends Stuff {
         // 부모의 생성자를 호출
         super(info);
 
+        this.width = 0.5;
+        this.height = 0.5;
+        this.depth = 0.5;
+
         this.mesh = new Mesh(
-            new BoxGeometry(0.5, 0.5, 0.5),
+            new BoxGeometry(this.width, this.height, this.depth),
             new MeshBasicMaterial({ transparent: true, opacity: 0 })
         );
 
@@ -41,6 +45,8 @@ export class Player extends Stuff {
                 this.actions[2].repetitions = 1;
 
                 this.actions[0].play();
+
+                this.setCannonBody();
             }
         );
 

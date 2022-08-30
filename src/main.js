@@ -97,6 +97,7 @@ cm1.world.addContactMaterial(playerGlassContactMaterial);
 // 물체
 const glassUnitSize = 1.2;
 const numberOfGlass = 10; 
+const objects = [];
 
 // Stage
 const floor = new Floor({
@@ -117,6 +118,7 @@ const pillar2 = new Pillar({
 	y: 5.5,
 	z: glassUnitSize * 12 + glassUnitSize / 2
 });
+objects.push(pillar1, pillar2);
 
 // Bar
 const bar1 = new Bar({	name: 'bar', x: -1.6, y: 10.3, z: 0 });
@@ -163,7 +165,8 @@ for(let i = 0; i < numberOfGlass; i++) {
 		x: -1,
 		y: 10.5,
 		z: i * glassUnitSize * 2 - glassUnitSize * 9,
-		type: glassTypes[0]
+		type: glassTypes[0],
+		cannonMaterial: cm1.glassMaterial,
 	})
 
 	const glass2 = new Glass({
@@ -172,7 +175,10 @@ for(let i = 0; i < numberOfGlass; i++) {
 		y: 10.5,
 		z: i * glassUnitSize * 2 - glassUnitSize * 9,
 		type: glassTypes[1],
-	})
+		cannonMaterial: cm1.glassMaterial,
+	});
+
+	objects.push(glass1, glass2);
 }
 
 // Player
@@ -181,8 +187,12 @@ const player = new Player({
 	x: 0,
 	y: 10.9,
 	z: 13,
-	rotationY: Math.PI
+	rotationY: Math.PI,
+	cannonMaterial: cm1.playerMaterial,
+	mass: 30,
 });
+objects.push(player);
+// console.log(objects);
 
 // RayCaster
 const raycaster = new THREE.Raycaster();
@@ -215,6 +225,23 @@ function draw() {
 	const delta = clock.getDelta();
 	
 	if(cm1.mixer) cm1.mixer.update(delta);
+
+	cm1.world.step(1/60, delta, 3);
+	objects.forEach(item => {
+		if(item.cannonBody) {
+			item.mesh.position.copy(item.cannonBody.position);
+			item.mesh.quaternion.copy(item.cannonBody.quaternion);
+
+			if(item.modelMesh) {
+				item.modelMesh.position.copy(item.cannonBody.position);
+				item.modelMesh.quaternion.copy(item.cannonBody.quaternion);
+
+				if(item.name === 'player') {
+					item.modelMesh.position.y += 0.15;
+				}
+			}
+		}
+	});
 
 	controls.update();
 
