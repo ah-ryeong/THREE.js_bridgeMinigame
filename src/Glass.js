@@ -15,9 +15,11 @@ export class Glass extends Stuff {
         switch(this.type) {
             case 'normal':
                 this.material = mat.glass1;
+                this.mass = 1;
                 break;
             case 'strong':
                 this.material = mat.glass2;
+                this.mass = 1000;
                 break;
         }
 
@@ -31,6 +33,7 @@ export class Glass extends Stuff {
         this.mesh.receiveShadow = true;
         this.mesh.name = this.name;
         this.mesh.step = this.step;
+        this.mesh.type = this.type;
 
         cm1.scene.add(this.mesh);
 
