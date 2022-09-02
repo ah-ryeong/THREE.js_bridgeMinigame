@@ -220,22 +220,36 @@ function checkIntersects() {
 	}
 }
 
+let fail = false;
+let jumping = false;
 function checkClickedObject(mesh) {
 	// console.log(objectName.indexOf('glass'));
 	if(mesh.name.indexOf('glass') >= 0) {
 		// 유리판 클릭했을 때
+		if(jumping || fail) return;
+
+		if(jumping) return;
+
 		if(mesh.step - 1 === cm2.step) {
+			jumping = true;
 			cm2.step++;
 			console.log(cm2.step);
 
 			switch(mesh.type) {
 				case 'normal':
 					console.log('normal');
+					const timerId = setTimeout(() => {
+						fail = true;
+					}, 700);
 					break;
 				case 'strong':
 					console.log('strong');
 					break;
 			}
+
+			const timerId = setTimeout(() => {
+				jumping = false;
+			}, 1000);
 
 			gsap.to(
 				player.cannonBody.position,
@@ -268,15 +282,23 @@ function draw() {
 	cm1.world.step(1/60, delta, 3);
 	objects.forEach(item => {
 		if(item.cannonBody) {
-			item.mesh.position.copy(item.cannonBody.position);
-			item.mesh.quaternion.copy(item.cannonBody.quaternion);
+			if(item.name === 'player') {
+				item.mesh.position.copy(item.cannonBody.position);
+				if(fail) item.mesh.quaternion.copy(item.cannonBody.quaternion);
 
-			if(item.modelMesh) {
-				item.modelMesh.position.copy(item.cannonBody.position);
-				item.modelMesh.quaternion.copy(item.cannonBody.quaternion);
+				if(item.modelMesh) {
+					item.modelMesh.position.copy(item.cannonBody.position);
+					if(fail) item.modelMesh.quaternion.copy(item.cannonBody.quaternion);
+				}
 
-				if(item.name === 'player') {
-					item.modelMesh.position.y += 0.15;
+				item.modelMesh.position.y += 0.15;
+			} else {
+				item.mesh.position.copy(item.cannonBody.position);
+				item.mesh.quaternion.copy(item.cannonBody.quaternion);
+
+				if(item.modelMesh) {
+					item.modelMesh.position.copy(item.cannonBody.position);
+					item.modelMesh.quaternion.copy(item.cannonBody.quaternion);
 				}
 			}
 		}
