@@ -248,6 +248,7 @@ function checkClickedObject(mesh) {
 						sideLights.forEach(item => {
 							item.turnOff();
 						});
+						clearTimeout(timerId);
 					}, 700);
 					break;
 				case 'strong':
@@ -257,6 +258,7 @@ function checkClickedObject(mesh) {
 
 			const timerId = setTimeout(() => {
 				jumping = false;
+				clearTimeout(timerId);
 			}, 1000);
 
 			gsap.to(
@@ -275,6 +277,33 @@ function checkClickedObject(mesh) {
 					y: 12
 				}
 			);
+
+			// clear!
+			if(cm2.step === numberOfGlass && mesh.type === 'strong') {
+				const timerId = setTimeout(() => {
+					player.actions[2].stop();
+					player.actions[2].play();
+
+					gsap.to(
+						player.cannonBody.position,
+						{
+							duration: 1,
+							x: 0,
+							z: -14
+						}
+					);
+		
+					gsap.to(
+						player.cannonBody.position,
+						{
+							duration: 0.4,
+							y: 12
+						}
+					);
+
+					clearTimeout(timerId);
+				}, 1500);
+			}
 		}
 	}
 }
