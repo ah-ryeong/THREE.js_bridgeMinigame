@@ -245,11 +245,11 @@ function checkClickedObject(mesh) {
 			player.actions[2].play();
 			jumping = true;
 			cm2.step++;
-			console.log(cm2.step);
+			// console.log(cm2.step);
 
 			switch(mesh.type) {
 				case 'normal':
-					console.log('normal');
+					// console.log('normal');
 					const timerId = setTimeout(() => {
 						fail = true;
 						player.actions[0].stop();
@@ -274,7 +274,7 @@ function checkClickedObject(mesh) {
 					}, 700);
 					break;
 				case 'strong':
-					console.log('strong');
+					// console.log('strong');
 					break;
 			}
 
@@ -342,8 +342,6 @@ function draw() {
 	objects.forEach(item => {
 		if(item.cannonBody) {
 			if(item.name === 'player') {
-				item.mesh.position.copy(item.cannonBody.position);
-				if(fail) item.mesh.quaternion.copy(item.cannonBody.quaternion);
 
 				if(item.modelMesh) {
 					item.modelMesh.position.copy(item.cannonBody.position);

@@ -45,7 +45,6 @@ export class Glass extends Stuff {
         
         function playSound(e) {
             const strength = e.contact.getImpactVelocityAlongNormal();
-            console.log('타나?');
             if(strength > 5) {
                 sound.currentTime = 0;
                 sound.play();

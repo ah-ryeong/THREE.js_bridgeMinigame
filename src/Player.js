@@ -11,19 +11,19 @@ export class Player extends Stuff {
         this.height = 0.5;
         this.depth = 0.5;
 
-        this.mesh = new Mesh(
-            new BoxGeometry(this.width, this.height, this.depth),
-            new MeshBasicMaterial({ transparent: true, opacity: 0 })
-        );
-
-        this.mesh.castShadow = true;
-        this.mesh.position.set(this.x, this.y, this.z);
-        cm1.scene.add(this.mesh);
-
         cm1.gltfLoader.load(
             'models/ilbuni.glb',
             glb => {
-                // console.log(glb);
+                // shadow
+                // console.log(glb.scene);
+                glb.scene.traverse(child => {
+                    // console.log(child);
+                    if(child.isMesh) {
+                        child.castShadow = true;
+                    }
+                });
+
+
                 this.modelMesh = glb.scene.children[0];
                 this.modelMesh.position.set(this.x, this.y, this.z);
                 this.modelMesh.rotation.set(
