@@ -1,5 +1,6 @@
 import { cm1, cm2 } from './common';
 import * as THREE from 'three';
+import { PreventDragClick } from './PreventDragClick';
 import * as CANNON from 'cannon-es';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import gsap from 'gsap';
@@ -382,9 +383,11 @@ function setSize() {
 	renderer.render(cm1.scene, camera);
 }
 
-// 이벤트
+// 이벤트.
+const preventDragClick = new PreventDragClick(canvas);
 window.addEventListener('resize', setSize);
 canvas.addEventListener('click', e =>{
+	if(preventDragClick.mouseMoved) return;
 	mouse.x = e.clientX / canvas.clientWidth * 2 - 1;
 	mouse.y = -(e.clientY / canvas.clientHeight * 2 - 1);
 	// console.log(mouse);
